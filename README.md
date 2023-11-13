@@ -6,7 +6,7 @@ My approach to counting the number of tweets, including those with the hashtag [
 
 # Stack
 
-- [Bun](https://bun.sh/) - Bun is an all-in-one JavaScript runtime and ultra-fast package manager
+- [Bun](https://bun.sh/) - An all-in-one JavaScript runtime and ultra-fast package manager
 - [Vite](https://vitejs.dev/) - Build tool and development server for modern web development
 - [React](https://react.dev/) - The library for web and native user interfaces
 - [React Bootstrap](https://react-bootstrap.netlify.app/) - React + Bootstrap UI components
