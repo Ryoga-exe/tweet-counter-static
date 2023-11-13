@@ -16,6 +16,22 @@ function PageIndex() {
   const [result, setReault] = useState<string[]>([]);
   const [tweets, setTweets] = useState<string[][]>([]);
   const [searchText, setSearchText] = useState(query.get("searchText") || "");
+  const [duplication, setDuplication] = useState<boolean>(false);
+
+  const search = (data: string[][]) => {
+    const reduced = data.reduce((accumulator, currentValue) => {
+      if (searchText.trim() === "") {
+        accumulator.push(currentValue[0]);
+      }
+      else if (currentValue[2].includes(searchText.trim())) {
+        accumulator.push(currentValue[0]);
+      }
+      return accumulator;
+    }, []);
+    const setElements = new Set(reduced);
+    setDuplication(setElements.size !== reduced.length);
+    setReault(reduced);
+  }
 
   const handleOnChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -27,12 +43,14 @@ function PageIndex() {
       skipEmptyLines: true,
       complete: function (results: { data: string[][] }) {
         setTweets(results.data.slice(1));
+        search(results.data.slice(1));
       },
     });
   };
 
   const handleOnChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
+      setSearchText("");
       return;
     }
     setSearchText(e.target.value);
@@ -41,13 +59,7 @@ function PageIndex() {
   const handleOnSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (file) {
-      const reduced = tweets.reduce((accumulator, currentValue) => {
-        if (currentValue[2].includes(searchText.trim())) {
-          accumulator.push(currentValue[0]);
-        }
-        return accumulator;
-      }, []);
-      setReault(reduced);
+      search(tweets);
     }
   };
 
@@ -84,9 +96,16 @@ function PageIndex() {
             </Form.Group>
             <Button as="input" type="submit" value="Submit" onClick={handleOnSubmit} />
           </Form>
-          <Alert variant="info">
-            {result.length > 0 ? <>{result.length}件見つかりました</> : <>見つかりませんでした</>}
-          </Alert>
+          <Stack>
+            <Alert variant="info">
+              {!file ? <>ファイルを選択してください</> : result.length > 0 ? <>{result.length}件見つかりました</> : <>見つかりませんでした</>}
+            </Alert>
+            {
+              file && result.length > 0 && (
+                duplication && <Alert variant="warning">データに重複があります</Alert>
+              )
+            }
+          </Stack>
         </Stack>
         {result.map((i) => {
           return <Tweet id={i} key={i} />;
