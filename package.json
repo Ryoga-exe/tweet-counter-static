@@ -4,7 +4,7 @@
   "description": "Count tweets from tweet activity metrics",
   "version": "0.0.0",
   "author": "Ryoga-exe <49950206+Ryoga-exe@users.noreply.github.com>",
-  "license":"Apache-2.0",
+  "license": "Apache-2.0",
   "type": "module",
   "keywords": [
     "twitter",
@@ -51,5 +51,6 @@
     "sass": "^1.69.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
-  }
+  },
+  "packageManager": "bun@1.0.7"
 }
