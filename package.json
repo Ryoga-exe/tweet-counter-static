@@ -4,6 +4,7 @@
   "description": "Count tweets from tweet activity metrics",
   "version": "0.0.0",
   "author": "Ryoga-exe <49950206+Ryoga-exe@users.noreply.github.com>",
+  "license":"Apache-2.0",
   "type": "module",
   "keywords": [
     "twitter",
