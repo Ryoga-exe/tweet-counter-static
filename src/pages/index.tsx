@@ -80,7 +80,7 @@ function PageIndex() {
         </Form>
         {result.length > 0 ? <p>{result.length}件見つかりました</p> : <p>見つかりませんでした</p>}
         {result.map((i) => {
-          return <Tweet id={i} />;
+          return <Tweet id={i} key={i} />;
         })}
       </Container>
     </>
