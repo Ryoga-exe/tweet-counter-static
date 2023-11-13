@@ -1,8 +1,21 @@
 {
   "name": "tweet-counter-static",
   "private": true,
+  "description": "Count tweets from tweet activity metrics",
   "version": "0.0.0",
+  "author": "Ryoga-exe <49950206+Ryoga-exe@users.noreply.github.com>",
   "type": "module",
+  "keywords": [
+    "twitter",
+    "tweet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ryoga-exe/tweet-counter-static.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ryoga-exe/tweet-counter-static/issues"
+  },
   "scripts": {
     "dev": "vite",
     "start": "vite",
