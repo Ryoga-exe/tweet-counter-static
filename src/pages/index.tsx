@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Navbar, Form, Button } from "react-bootstrap";
+import { Container, Navbar, Form, Button, Alert, Stack } from "react-bootstrap";
 import Papa from "papaparse";
 import { Tweet } from "react-tweet";
 
@@ -67,23 +67,27 @@ function PageIndex() {
       </header>
       <Container>
         <h1 className="mt-4">Count tweets from tweet activity metrics</h1>
-        <Form>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>CSV ファイルを選択</Form.Label>
-            <Form.Control type="file" accept=".csv" onChange={handleOnChangeFile} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>検索する文字列を入力</Form.Label>
-            <Form.Control
-              type="text"
-              value={searchText}
-              placeholder="#コンテンツ入門2023"
-              onChange={handleOnChangeSearch}
-            />
-          </Form.Group>
-          <Button as="input" type="submit" value="Submit" onClick={handleOnSubmit} />
-        </Form>
-        {result.length > 0 ? <p>{result.length}件見つかりました</p> : <p>見つかりませんでした</p>}
+        <Stack gap={3}>
+          <Form>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>CSV ファイルを選択</Form.Label>
+              <Form.Control type="file" accept=".csv" onChange={handleOnChangeFile} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>検索する文字列を入力</Form.Label>
+              <Form.Control
+                type="text"
+                value={searchText}
+                placeholder="#コンテンツ入門2023"
+                onChange={handleOnChangeSearch}
+              />
+            </Form.Group>
+            <Button as="input" type="submit" value="Submit" onClick={handleOnSubmit} />
+          </Form>
+          <Alert variant="info">
+            {result.length > 0 ? <>{result.length}件見つかりました</> : <>見つかりませんでした</>}
+          </Alert>
+        </Stack>
         {result.map((i) => {
           return <Tweet id={i} key={i} />;
         })}
