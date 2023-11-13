@@ -5,5 +5,6 @@ export const router = createBrowserRouter([
   {
     path: "/",
     children: [{ index: true, element: <PageIndex /> }],
-  },
-]);
+  }], {
+  basename: "/tweet-counter-static/"
+});
