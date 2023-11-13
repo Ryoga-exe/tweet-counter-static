@@ -22,8 +22,7 @@ function PageIndex() {
     const reduced = data.reduce((accumulator, currentValue) => {
       if (searchText.trim() === "") {
         accumulator.push(currentValue[0]);
-      }
-      else if (currentValue[2].includes(searchText.trim())) {
+      } else if (currentValue[2].includes(searchText.trim())) {
         accumulator.push(currentValue[0]);
       }
       return accumulator;
@@ -31,7 +30,7 @@ function PageIndex() {
     const setElements = new Set(reduced);
     setDuplication(setElements.size !== reduced.length);
     setReault(reduced);
-  }
+  };
 
   const handleOnChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -98,13 +97,15 @@ function PageIndex() {
           </Form>
           <Stack>
             <Alert variant="info">
-              {!file ? <>ファイルを選択してください</> : result.length > 0 ? <>{result.length}件見つかりました</> : <>見つかりませんでした</>}
+              {!file ? (
+                <>ファイルを選択してください</>
+              ) : result.length > 0 ? (
+                <>{result.length}件見つかりました</>
+              ) : (
+                <>見つかりませんでした</>
+              )}
             </Alert>
-            {
-              file && result.length > 0 && (
-                duplication && <Alert variant="warning">データに重複があります</Alert>
-              )
-            }
+            {file && result.length > 0 && duplication && <Alert variant="warning">データに重複があります</Alert>}
           </Stack>
         </Stack>
         {result.map((i) => {
