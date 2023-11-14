@@ -23,8 +23,8 @@ function PageIndex() {
   const [endTime, setEndTime] = useState<string>(query.get("endTime") || "");
 
   const search = (data: string[][]) => {
-    const startDateTime = new Date(startDate + " " + startTime);
-    const endDateTime = new Date(endDate + " " + endTime);
+    const startDateTime = new Date(startDate + " " + startTime === "" ? "00:00" : startTime);
+    const endDateTime = new Date(endDate + " " + endTime === "" ? "00:00" : endTime);
     const reduced = data.reduce((accumulator, currentValue) => {
       const tweetDateTime = new Date(currentValue[3]);
       let check = true;
