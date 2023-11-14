@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Navbar, Form, Button, Alert, Stack } from "react-bootstrap";
+import { Container, Navbar, Form, Button, Alert, Stack, InputGroup } from "react-bootstrap";
 import Papa from "papaparse";
 import { Tweet } from "react-tweet";
 
@@ -17,12 +17,27 @@ function PageIndex() {
   const [tweets, setTweets] = useState<string[][]>([]);
   const [searchText, setSearchText] = useState(query.get("searchText") || "");
   const [duplication, setDuplication] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<string>(query.get("startDate") || "");
+  const [startTime, setStartTime] = useState<string>(query.get("startTime") || "");
+  const [endDate, setEndDate] = useState<string>(query.get("endDate") || "");
+  const [endTime, setEndTime] = useState<string>(query.get("endTime") || "");
 
   const search = (data: string[][]) => {
+    const startDateTime = new Date(startDate + " " + startTime);
+    const endDateTime = new Date(endDate + " " + endTime);
     const reduced = data.reduce((accumulator, currentValue) => {
-      if (searchText.trim() === "") {
-        accumulator.push(currentValue[0]);
-      } else if (currentValue[2].includes(searchText.trim())) {
+      const tweetDateTime = new Date(currentValue[3]);
+      let check = true;
+      if (searchText.trim() !== "" && !currentValue[2].includes(searchText.trim())) {
+        check = false;
+      }
+      if (startDateTime && startDateTime > tweetDateTime) {
+        check = false;
+      }
+      if (endDateTime && endDateTime < tweetDateTime) {
+        check = false;
+      }
+      if (check) {
         accumulator.push(currentValue[0]);
       }
       return accumulator;
@@ -80,11 +95,11 @@ function PageIndex() {
         <h1 className="mt-4">Count tweets from tweet activity metrics</h1>
         <Stack gap={3}>
           <Form>
-            <Form.Group controlId="formFile" className="mb-3">
+            <Form.Group className="mb-3" controlId="form.file">
               <Form.Label>CSV ファイルを選択</Form.Label>
               <Form.Control type="file" accept=".csv" onChange={handleOnChangeFile} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="from.searchText">
               <Form.Label>検索する文字列を入力</Form.Label>
               <Form.Control
                 type="text"
@@ -92,6 +107,16 @@ function PageIndex() {
                 placeholder="#コンテンツ入門2023"
                 onChange={handleOnChangeSearch}
               />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="form.date">
+              <Form.Label>検索する日時の範囲を入力 (空欄で全範囲を検索)</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control type="date" aria-label="Start Date" value={startDate} onChange={(event) => setStartDate(event.target.value)} />
+                <Form.Control type="time" aria-label="Start Time" value={startTime} onChange={(event) => setStartTime(event.target.value)} />
+                <InputGroup.Text>から</InputGroup.Text>
+                <Form.Control type="date" aria-label="End Date" value={endDate} onChange={(event) => setEndDate(event.target.value)} />
+                <Form.Control type="time" aria-label="End Time" value={endTime} onChange={(event) => setEndTime(event.target.value)} />
+              </InputGroup>
             </Form.Group>
             <Button as="input" type="submit" value="Submit" onClick={handleOnSubmit} />
           </Form>
