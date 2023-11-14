@@ -83,11 +83,9 @@ function PageIndex() {
         <Navbar expand="lg" bg="dark" variant="dark">
           <Container>
             <Navbar.Brand href="#">Tweet Conter Static</Navbar.Brand>
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                <a href="https://github.com/Ryoga-exe/tweet-counter-static">GitHub</a>
-              </Navbar.Text>
-            </Navbar.Collapse>
+            <Navbar.Text className="justify-content-end">
+              <a href="https://github.com/Ryoga-exe/tweet-counter-static">GitHub</a>
+            </Navbar.Text>
           </Container>
         </Navbar>
       </header>
