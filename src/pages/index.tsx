@@ -111,11 +111,31 @@ function PageIndex() {
             <Form.Group className="mb-3" controlId="form.date">
               <Form.Label>検索する日時の範囲を入力 (空欄で全範囲を検索)</Form.Label>
               <InputGroup className="mb-3">
-                <Form.Control type="date" aria-label="Start Date" value={startDate} onChange={(event) => setStartDate(event.target.value)} />
-                <Form.Control type="time" aria-label="Start Time" value={startTime} onChange={(event) => setStartTime(event.target.value)} />
+                <Form.Control
+                  type="date"
+                  aria-label="Start Date"
+                  value={startDate}
+                  onChange={(event) => setStartDate(event.target.value)}
+                />
+                <Form.Control
+                  type="time"
+                  aria-label="Start Time"
+                  value={startTime}
+                  onChange={(event) => setStartTime(event.target.value)}
+                />
                 <InputGroup.Text>から</InputGroup.Text>
-                <Form.Control type="date" aria-label="End Date" value={endDate} onChange={(event) => setEndDate(event.target.value)} />
-                <Form.Control type="time" aria-label="End Time" value={endTime} onChange={(event) => setEndTime(event.target.value)} />
+                <Form.Control
+                  type="date"
+                  aria-label="End Date"
+                  value={endDate}
+                  onChange={(event) => setEndDate(event.target.value)}
+                />
+                <Form.Control
+                  type="time"
+                  aria-label="End Time"
+                  value={endTime}
+                  onChange={(event) => setEndTime(event.target.value)}
+                />
               </InputGroup>
             </Form.Group>
             <Button as="input" type="submit" value="Submit" onClick={handleOnSubmit} />

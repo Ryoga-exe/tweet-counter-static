@@ -21,10 +21,10 @@ This project requires the following to run:
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun run dev`             | Starts local dev server at `localhost:5173`      |
-| `bun run build`           | Build a production site to `./dist/`             |
-| `bun run preview`         | Preview a build locally, before deploying        |
-| `bun run format`          | Format the code using Prettier                   |
+| Command           | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `bun install`     | Installs dependencies                       |
+| `bun run dev`     | Starts local dev server at `localhost:5173` |
+| `bun run build`   | Build a production site to `./dist/`        |
+| `bun run preview` | Preview a build locally, before deploying   |
+| `bun run format`  | Format the code using Prettier              |
