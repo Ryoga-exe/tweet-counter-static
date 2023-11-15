@@ -21,10 +21,12 @@ function PageIndex() {
   const [startTime, setStartTime] = useState<string>(query.get("startTime") || "");
   const [endDate, setEndDate] = useState<string>(query.get("endDate") || "");
   const [endTime, setEndTime] = useState<string>(query.get("endTime") || "");
+  const [topImpressions, setTopImpressions] = useState<number>(0);
 
   const search = (data: string[][]) => {
     const startDateTime = new Date(startDate + " " + startTime === "" ? "00:00" : startTime);
     const endDateTime = new Date(endDate + " " + endTime === "" ? "00:00" : endTime);
+    setTopImpressions(0);
     const reduced = data.reduce((accumulator, currentValue) => {
       const tweetDateTime = new Date(currentValue[3]);
       let check = true;
@@ -39,6 +41,7 @@ function PageIndex() {
       }
       if (check) {
         accumulator.push(currentValue[0]);
+        setTopImpressions((value) => Math.max(value, parseInt(currentValue[4])));
       }
       return accumulator;
     }, []);
@@ -52,6 +55,7 @@ function PageIndex() {
       return;
     }
     setFile(e.target.files[0]);
+    setTopImpressions(0);
     Papa.parse(e.target.files[0], {
       header: false,
       skipEmptyLines: true,
@@ -143,7 +147,9 @@ function PageIndex() {
               {!file ? (
                 <>ファイルを選択してください</>
               ) : result.length > 0 ? (
-                <>{result.length}件見つかりました</>
+                <>
+                  {result.length}件見つかりました、該当ツイートの中で最も高いインプレッション数は{topImpressions}です。
+                </>
               ) : (
                 <>見つかりませんでした</>
               )}
