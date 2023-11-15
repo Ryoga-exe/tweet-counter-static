@@ -157,8 +157,8 @@ function PageIndex() {
             {file && result.length > 0 && duplication && <Alert variant="warning">データに重複があります</Alert>}
           </Stack>
         </Stack>
-        {result.map((i) => {
-          return <Tweet id={i} key={i} />;
+        {result.map((value, index) => {
+          return <Tweet id={value} key={value.toString() + index.toString()} />;
         })}
       </Container>
     </>
